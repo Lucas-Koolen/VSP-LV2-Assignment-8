@@ -1,6 +1,6 @@
 # 🎯 Real-time Object Tracking & Trajectory Prediction
 
-Dit project trackt een specifiek object op kleur (zoals een paarse lippenbalsem) en voorspelt realtime de volgende positie met behulp van een LSTM-neuraal netwerk.
+Dit project trackt een specifiek object op kleur (zoals een paars object) en voorspelt realtime de volgende positie met behulp van een LSTM-neuraal netwerk.
 
 ---
 
@@ -84,4 +84,4 @@ Start live tracking + voorspelling:
 
 ---
 
-© 2025 – VSP Level 2 Assignment – Lucas Koolen
+© 2025 – VSP Level 2 Assignment 
