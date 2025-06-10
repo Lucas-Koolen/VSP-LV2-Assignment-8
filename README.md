@@ -1,114 +1,87 @@
-# Real-time Object Tracking & Trajectory Prediction (Purple Cylinder)
+# 🎯 Real-time Object Tracking & Trajectory Prediction
 
-Dit project trackt een specifiek object op basis van kleur (zoals een paarse lippenbalsem) en voorspelt de volgende positie realtime met behulp van een LSTM-neuraal netwerk.
+Dit project trackt een specifiek object op kleur (zoals een paarse lippenbalsem) en voorspelt realtime de volgende positie met behulp van een LSTM-neuraal netwerk.
 
---
+---
 
-📦 INSTALLATIE
+## Installatie
 
-1. Zorg dat je Python 3.10 of nieuwer hebt geïnstalleerd.
-2. Installeer alle afhankelijkheden:
+1. Zorg dat je Python 3.10 of nieuwer hebt.
+2. Installeer de vereisten:
 
    pip install -r requirements.txt
 
---
+---
 
-📁 STRUCTUUR VAN DE PROJECTMAP
+## 📁 Projectstructuur
 
-VSP-LV2-Assignment-8/
-├── datasets/                 ← Bevat trackingvideo’s + csv-data per sessie
-│   └── session_YYYYMMDD_HHMMSS/
-│       └── clip_001/
-│           ├── clip_001.csv
-│           └── clip_001.mp4
-├── models/
-│   ├── lstm_model.keras      ← Getraind model (optioneel)
-│   └── training_data.npz     ← Sequentiedata voor training
-├── record_tracking_data.py   ← Object volgen en trackingdata opnemen
-├── prepare_dataset.py        ← Zet .csv trackingdata om naar X/y sequenties
-├── train_lstm.py             ← Traineert of finetunet het LSTM-model
-├── predict_live.py           ← Live tracking + voorspelling met webcam
-├── requirements.txt
-└── README.md
+- `datasets/` – Bevat sessies met trackingvideo’s en CSV-data
+  - `session_YYYYMMDD_HHMMSS/`
+    - `clip_001.csv`
+    - `clip_001.mp4`
+- `models/` – Bevat getrainde modellen en gegenereerde trainingsdata
+  - `lstm_model.keras`
+  - `training_data.npz`
+- `.gitignore` – Negeert o.a. datasets/ en models/
+- `LICENSE` – MIT-licentie
+- `README.md` – Uitleg en installatie
+- `requirements.txt` – Pip dependencies
+- `record_tracking_data.py` – Opnemen van trackingclips via webcam
+- `prepare_dataset.py` – Zet CSV trackingdata om naar sequenties
+- `train_lstm.py` – Traineert of finetunet het LSTM-model
+- `predict_live.py` – Live tracking en voorspelling met webcam
 
---
+---
 
-🔴 STAP 1 – OBJECT TRACKING OPNEMEN
+## Stap 1 – Objecttracking opnemen
 
-1. Start:  python record_tracking_data.py
-2. Klik op het paarse object in het camerabeeld.
-3. Druk op:
-   - '1' om de opname te starten
-   - '2' om de opname te stoppen
-4. Elke clip wordt automatisch in een nieuwe map opgeslagen.
+Start het script:
 
-Je vindt de .mp4 en bijbehorende .csv per clip onder: datasets/session_xxx/clip_xxx/
+    python record_tracking_data.py
 
---
+- Klik op het object in het camerabeeld (kleurinstelling).
+- Druk `1` om opname te starten.
+- Druk `2` om opname te stoppen.
+- Elke clip wordt automatisch in een nieuwe map geplaatst.
 
-🟡 STAP 2 – DATA PREPROCESSING
+---
 
-Voer uit:
+## Stap 2 – Dataset voorbereiden
 
-   python prepare_dataset.py
+Zet CSV-data om naar trainingsformaat:
 
-Dit script scant alle .csv’s en maakt de sequentie-dataset `models/training_data.npz`.
+    python prepare_dataset.py
 
-Let op: dit bestand wordt overschreven bij opnieuw uitvoeren.
+Dit genereert `models/training_data.npz`.
 
---
+---
 
-🟢 STAP 3 – LSTM-MODEL TRAINEN OF FINETUNEN
+## Stap 3 – Model trainen
 
-Kies één van de twee opties:
+**Nieuw model trainen vanaf nul:**
 
-**A: Opnieuw trainen vanaf 0 (scratch):**
+    python train_lstm.py
 
-1. Verwijder (of hernoem) eventueel het bestaande `models/lstm_model.keras`
-2. Voer uit:
+**Bestaand model verder trainen:**
 
-   python train_lstm.py
+Als `lstm_model.keras` al bestaat, wordt deze automatisch geladen.  
+Wil je versies bewaren? Gebruik bijvoorbeeld:
 
-Het script laadt `training_data.npz` en maakt een nieuw model aan.
+- `lstm_model_v1.keras`
+- `lstm_model_finetuned.keras`
 
-**B: Verder trainen op bestaand model:**
+---
 
-Het script detecteert automatisch of er al een model bestaat en laadt dat in.
+## Stap 4 – Live voorspelling met webcam
 
-Je kunt dus gewoon `python train_lstm.py` uitvoeren en hij gaat verder met trainen op basis van het bestaande model.
+Start live tracking + voorspelling:
 
-Je kunt eventueel meerdere modellen opslaan met andere namen zoals:
+    python predict_live.py
 
-- lstm_model_v1.keras
-- lstm_model_finetuned.keras
-- lstm_model_sessie2.keras
+- Webcambeeld is gespiegeld.
+- Rode stip = actuele positie, paarse stip = voorspelling.
+- Sluiten met `ESC`.
 
-Pas in `train_lstm.py` de bestandsnaam aan als je een specifiek model wilt herladen of opslaan.
+---
 
---
-
-🔵 STAP 4 – LIVE VOORSPELLEN MET WEBCAM
-
-Voer uit:
-
-   python predict_live.py
-
-- Het webcambeeld verschijnt, gespiegeld.
-- Je ziet:
-  - de huidige positie van het object (blauwe stip)
-  - de voorspelde volgende positie (paarse stip)
-- Sluiten: druk op ESC
-
-Zorg dat het object goed zichtbaar blijft en dat het trackinggebied duidelijk genoeg is voor het model.
-
---
-
-🛠 TIPS
-
-- Hertrain regelmatig met nieuwe clips als je model niet accuraat genoeg is.
-- Zorg voor variatie in je trainingsmateriaal (beweging, afstand, snelheid).
-- Voor betere prestaties kun je `train_lstm.py` aanpassen naar meer epochs, andere modelarchitectuur, etc.
-
---
-
-© 2025 – VSP LVL 2 ASSIGMENT 8
+© 2025 – VSP Level 2 Assignment – Lucas Koolen
