@@ -1,0 +1,26 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# VS Code instellingen (optioneel)
+.vscode/
+
+# Modelbestanden
+models/*.keras
+models/training_data.npz
+
+# Datasetvideo's en csv's
+datasets/
+
+# Logs of debug files
+*.log
+*.tmp
+
+# IDE temp files
+*.swp
+*.swo
+*~
+
+# Jupyter checkpoints (als je ooit notebooks toevoegt)
+.ipynb_checkpoints/
