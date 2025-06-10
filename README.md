@@ -23,7 +23,6 @@ Dit project trackt een specifiek object op kleur (zoals een paars object) en voo
   - `lstm_model.keras`
   - `training_data.npz`
 - `.gitignore` – Negeert o.a. datasets/ en models/
-- `LICENSE` – MIT-licentie
 - `README.md` – Uitleg en installatie
 - `requirements.txt` – Pip dependencies
 - `record_tracking_data.py` – Opnemen van trackingclips via webcam
