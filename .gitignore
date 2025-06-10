@@ -11,7 +11,8 @@ models/*.keras
 models/training_data.npz
 
 # Datasetvideo's en csv's
-datasets/
+datasets/*
+!datasets/.gitkeep
 
 # Logs of debug files
 *.log
