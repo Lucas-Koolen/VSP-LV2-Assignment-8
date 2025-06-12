@@ -11,8 +11,9 @@ model = load_model('models/lstm_model.keras')
 
 # Parameters
 SEQUENCE_LENGTH = 30
-HSV_LOWER = np.array([125, 80, 80])    # Paars
-HSV_UPPER = np.array([160, 255, 255])  # Paars
+HSV_LOWER = np.array([22, 120, 180])
+HSV_UPPER = np.array([35, 255, 255])
+
 
 cap = cv2.VideoCapture(0)
 sequence = deque(maxlen=SEQUENCE_LENGTH)
